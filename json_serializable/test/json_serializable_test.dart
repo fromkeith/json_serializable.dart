@@ -17,10 +17,21 @@ Future<void> main() async {
     '_json_serializable_test_input.dart',
   );
 
+  final jsonSchemaTestReader = await initializeLibraryReaderForDirectory(
+    p.join('test', 'src'),
+    '_json_schema_test_input.dart',
+  );
+
   testAnnotatedElements(
     jsonSerializableTestReader,
     JsonSerializableGenerator(),
     expectedAnnotatedTests: _expectedAnnotatedTests,
+  );
+
+  testAnnotatedElements(
+    jsonSchemaTestReader,
+    JsonSerializableGenerator(),
+    expectedAnnotatedTests: _expectedSchemaTests,
   );
 
   final jsonEnumTestReader = await initializeLibraryReaderForDirectory(
@@ -49,6 +60,8 @@ const _expectedAnnotatedTests = {
   'BadToFuncReturnType',
   'BadTwoRequiredPositional',
   'CtorDefaultValueAndJsonKeyDefaultValue',
+  'CtorParamJsonKey',
+  'CtorParamJsonKeyWithExtends',
   'DefaultDoubleConstants',
   'DefaultWithConstObject',
   'DefaultWithDisallowNullRequiredClass',
@@ -140,6 +153,7 @@ const _expectedAnnotatedTests = {
   'UnsupportedEnum',
   'UnsupportedListField',
   'UnsupportedMapField',
+  'UnsupportedNestedFunctionType',
   'UnsupportedSetField',
   'UnsupportedUriField',
   'ValidToFromFuncClassStatic',
@@ -149,4 +163,18 @@ const _expectedAnnotatedTests = {
   '_BetterPrivateNames',
   'annotatedMethod',
   'theAnswer',
+  'JsonSchemaTestClass',
+  'DateTimeUtcTestClass',
+};
+
+const _expectedSchemaTests = {
+  'JsonSchemaDocsTest',
+  'JsonSchemaCollectionsTest',
+  'JsonSchemaDefaultsTest',
+  'JsonSchemaNullableTest',
+  'JsonSchemaNestedTest',
+  'JsonSchemaNonCollectionTest',
+  'JsonSchemaGetterTest',
+  'JsonSchemaRecursiveListTest',
+  'JsonSchemaRecursiveListIssue',
 };
